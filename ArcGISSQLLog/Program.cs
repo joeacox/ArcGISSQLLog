@@ -139,7 +139,16 @@ namespace ArcGISSQLLog
 
         public static string GetLastLogEntryTimeAgsTimestamp(string dbuser, string dbschema, string dbpassword, string dbname, string dbserver, bool debug)
         {
-            SqlConnection myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + "; User ID=" + dbuser + "; Password=" + dbpassword);
+            SqlConnection myConnection;
+            
+            if (dbuser != "OSA")
+            {
+                myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + "; User ID=" + dbuser + "; Password=" + dbpassword);
+            }
+            else
+            {
+                myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + ";Integrated Security=true");
+            }
 
             try
             {
@@ -171,7 +180,16 @@ namespace ArcGISSQLLog
         {
             if (debug) Console.WriteLine("Retrieved " + logMessages.logMessages.Count + " records");
 
-            SqlConnection myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + "; User ID=" + dbuser + "; Password=" + dbpassword);
+            SqlConnection myConnection;
+
+            if (dbuser != "OSA")
+            {
+                myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + "; User ID=" + dbuser + "; Password=" + dbpassword);
+            }
+            else
+            {
+                myConnection = new SqlConnection("Server=" + dbserver + "; Database=" + dbname + ";Integrated Security=true");
+            }
 
             try
             {
